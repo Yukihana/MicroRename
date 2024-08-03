@@ -1,0 +1,2 @@
+﻿change name to CSX.DotNet.Shared
+Move to separate solution, make a nuget.

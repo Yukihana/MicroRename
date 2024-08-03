@@ -12,7 +12,7 @@
         WindowStyle="None" AllowsTransparency="True"
         Foreground="#BBB">
     <Window.Background>
-        <ImageBrush ImageSource="/Resources/Images/AboutBG.png" Opacity="0.8"/>
+        <ImageBrush ImageSource="pack://application:,,,/Resources/Images/AboutBG.png" Opacity="0.8" />
     </Window.Background>
 
     <DockPanel Margin="20">
@@ -25,9 +25,9 @@
                     Width="100"
                     Height="25">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Resources/Images/AboutOK.png"/>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/Images/AboutOK.png" />
                 </Button.Background>
-                <TextBlock Text="OK"/>
+                <TextBlock Text="OK" />
             </Button>
             <Button HorizontalAlignment="Left"
                     BorderBrush="Transparent"
@@ -39,7 +39,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border>
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
@@ -48,7 +48,7 @@
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
-                                    <Setter Property="TextDecorations" Value="Underline"/>
+                                    <Setter Property="TextDecorations" Value="Underline" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -60,40 +60,40 @@
         <StackPanel Orientation="Vertical">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontSize" Value="14" />
                 </Style>
             </StackPanel.Resources>
             <TextBlock Text="Micro Rename 2022" Foreground="#DDD"
-                       FontSize="20.25" FontWeight="Bold"/>
+                       FontSize="20.25" FontWeight="Bold" />
             <TextBlock Foreground="#888">
-                <Run Text="CherrySoft-X"/>
-                <Run Text="●" Foreground="CornflowerBlue"/>
-                <Run Text="Version 1.9.8"/>
-                <Run Text="●" Foreground="CornflowerBlue"/>
-                <Run Text="Build 25"/>
+                <Run Text="CherrySoft-X" />
+                <Run Text="●" Foreground="CornflowerBlue" />
+                <Run Text="Version 1.9.8" />
+                <Run Text="●" Foreground="CornflowerBlue" />
+                <Run Text="Build 25" />
             </TextBlock>
             <Separator Margin="0 10">
                 <Separator.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="Transparent" Offset="0"/>
-                        <GradientStop Color="#BBB" Offset="0.5"/>
-                        <GradientStop Color="Transparent" Offset="1"/>
+                        <GradientStop Color="Transparent" Offset="0" />
+                        <GradientStop Color="#BBB" Offset="0.5" />
+                        <GradientStop Color="Transparent" Offset="1" />
                     </LinearGradientBrush>
                 </Separator.Background>
             </Separator>
-            <TextBlock Text="A program to enqueue files and rename them."/>
+            <TextBlock Text="A program to enqueue files and rename them." />
             <TextBlock TextWrapping="WrapWithOverflow">
                 <TextBlock.Foreground>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="#777" Offset="0"/>
-                        <GradientStop Color="#DDD" Offset="0.4"/>
-                        <GradientStop Color="#DDD" Offset="0.6"/>
-                        <GradientStop Color="#777" Offset="1"/>
+                        <GradientStop Color="#777" Offset="0" />
+                        <GradientStop Color="#DDD" Offset="0.4" />
+                        <GradientStop Color="#DDD" Offset="0.6" />
+                        <GradientStop Color="#777" Offset="1" />
                     </LinearGradientBrush>
                 </TextBlock.Foreground>
-                <LineBreak/>
-                <Run Text="Disclaimer:" FontWeight="Bold"/>
-                <LineBreak/>
+                <LineBreak />
+                <Run Text="Disclaimer:" FontWeight="Bold" />
+                <LineBreak />
                 <Run Text="{StaticResource Disclaimer}" />
             </TextBlock>
         </StackPanel>

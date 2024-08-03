@@ -3,24 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:CSX.Wpf.Controls;assembly=CSX.Wpf.NumericUpDown"
-        xmlns:dlg="clr-namespace:MicroRenameLogic.DLG;assembly=MicroRenameLogic"
-        mc:Ignorable="d" UseLayoutRounding="True"
-        d:DataContext="{d:DesignInstance Type=dlg:MRLogic, IsDesignTimeCreatable=True}"
+        xmlns:customcontrols="clr-namespace:CSX.Wpf.CustomControls;assembly=CSX.Wpf.CustomControls.NumericUpDown"
+        xmlns:context="clr-namespace:MicroRenameLogic.ViewContexts.MainViewContext;assembly=MicroRenameLogic"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=context:MainContextLogic, IsDesignTimeCreatable=True}"
+        Title="Micro Rename 2024"
         MinWidth="600" MinHeight="450"
         Height="450" Width="600"
-        Icon="/MicroRename2022.ico"
-        Title="Micro Rename 2022">
+        UseLayoutRounding="True"
+        Icon="pack://application:,,,/MicroRename2022.ico"
+        Closed="Window_Closed"
+        DataContextChanged="Window_DataContextChanged">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <!--Browse-->
@@ -30,47 +34,56 @@
                 <Button ToolTip="Add Files" Command="{Binding AddFilesCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Path Style="{StaticResource VectorToolbarButtonPath}"
-                              Data="{StaticResource AddFiles}"/>
-                        <TextBlock Text="Files" VerticalAlignment="Center" Margin="3"/>
+                              Data="{StaticResource AddFiles}" />
+                        <TextBlock Text="Files" VerticalAlignment="Center" Margin="3" />
                     </StackPanel>
                 </Button>
                 <Button ToolTip="Add Folders" Command="{Binding AddFolderCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Path Style="{StaticResource VectorToolbarButtonPath}"
-                          Data="{StaticResource AddFolder}"/>
+                          Data="{StaticResource AddFolder}" />
                         <TextBlock Text="Folder"
-                                   VerticalAlignment="Center" Margin="3"/>
+                                   VerticalAlignment="Center" Margin="3" />
                     </StackPanel>
                 </Button>
-                <Separator/>
-                
-                <Button ToolTip="Rename">
+                <Separator />
+
+                <Button ToolTip="Rename" Command="{Binding RenameCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Path Style="{StaticResource VectorToolbarButtonPath}"
-                          Data="{StaticResource Rename}"/>
+                          Data="{StaticResource Rename}" />
                         <TextBlock Text="Rename"
-                                   VerticalAlignment="Center" Margin="3"/>
+                                   VerticalAlignment="Center" Margin="3" />
                     </StackPanel>
                 </Button>
-                <Separator/>
-                
+                <Button ToolTip="Log" Command="{Binding LogCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource VectorToolbarButtonPath}"
+                              Data="{StaticResource Log}" />
+                        <TextBlock Text="Logs"
+                   VerticalAlignment="Center" Margin="3" />
+                    </StackPanel>
+                </Button>
+                <Separator />
+
                 <Button ToolTip="Remove Files" Command="{Binding RemoveFilesCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Path Style="{StaticResource VectorToolbarButtonPath}"
-                              Data="{StaticResource RemoveFiles}"/>
+                              Data="{StaticResource RemoveFiles}" />
                         <TextBlock Text="Remove"
-                                   VerticalAlignment="Center" Margin="3"/>
+                                   VerticalAlignment="Center" Margin="3" />
                     </StackPanel>
                 </Button>
                 <Button ToolTip="Clear list" Command="{Binding ClearAllCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <Path Style="{StaticResource VectorToolbarButtonPath}"
-                                  Data="{StaticResource ClearAll}"/>
-                            <TextBlock Text="Clear list"
-                                       VerticalAlignment="Center" Margin="3"/>
-                        </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Path Style="{StaticResource VectorToolbarButtonPath}"
+                              Data="{StaticResource ClearAll}" />
+                        <TextBlock Text="Clear"
+                                   VerticalAlignment="Center" Margin="3" />
+                    </StackPanel>
                 </Button>
-                <Separator/>
+                <Separator />
+
                 <ToggleButton ToolTip="Options">
                     <Grid>
                         <Popup Placement="Bottom" StaysOpen="False" AllowsTransparency="True"
@@ -79,89 +92,89 @@
                             <Grid Margin="6">
                                 <Border Margin="5 5 0 0" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                                     <Border.Effect>
-                                        <DropShadowEffect BlurRadius="4" ShadowDepth="2" Opacity="0.6"/>
+                                        <DropShadowEffect BlurRadius="4" ShadowDepth="2" Opacity="0.6" />
                                     </Border.Effect>
                                 </Border>
                                 <Border BorderThickness="1" Padding="2"
                                         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
                                         BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
                                     <StackPanel KeyboardNavigation.DirectionalNavigation="Cycle">
+                                        <Separator Margin="30 1 2 1" />
                                         <MenuItem Header="Remove missing files"
-                                                  Command="{Binding ClearMissingCommand}"/>
-                                        <Separator Margin="30 1 2 1"/>
+                                                  Command="{Binding ClearMissingCommand}" />
+                                        <Separator Margin="30 1 2 1" />
                                         <MenuItem Header="Auto-overwrite" IsCheckable="True"
-                                                  IsChecked="{Binding DataModel.AutoOverwrite}"/>
-                                        <MenuItem Header="Make a copy" Visibility="Collapsed"/>
-                                        <Separator Margin="30 1 2 1" Visibility="Collapsed"/>
-                                        <MenuItem Header="Filters" Visibility="Collapsed"/>
-                                        <MenuItem Header="Darkmode" Visibility="Collapsed"/>
+                                                  IsChecked="{Binding ContextData.AutoOverwrite}" />
+                                        <MenuItem Header="Make a copy" Visibility="Collapsed" />
+                                        <Separator Margin="30 1 2 1" Visibility="Collapsed" />
+                                        <MenuItem Header="Filters" Visibility="Collapsed" />
+                                        <MenuItem Header="Darkmode" Visibility="Collapsed" />
                                     </StackPanel>
                                 </Border>
                             </Grid>
                         </Popup>
                         <StackPanel Orientation="Horizontal">
                             <Path Style="{StaticResource VectorToolbarButtonPath}"
-                              Data="{StaticResource Cog}"/>
+                              Data="{StaticResource Cog}" />
                             <TextBlock Text="Options"
-                                       VerticalAlignment="Center" Margin="3"/>
-                            <Path Data="M0,3h8L4,7z" Fill="Black" VerticalAlignment="Center" Margin="2"/>
+                                       VerticalAlignment="Center" Margin="3" />
+                            <Path Data="M0,3h8L4,7z" Fill="Black" VerticalAlignment="Center" Margin="2" />
                         </StackPanel>
                     </Grid>
                 </ToggleButton>
                 <Button ToolTip="About" Command="{Binding AboutCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Path Style="{StaticResource VectorToolbarButtonPath}"
-                          Data="{StaticResource Info}"/>
+                          Data="{StaticResource Info}" />
                         <TextBlock Text="About"
-                                   VerticalAlignment="Center" Margin="3"/>
+                                   VerticalAlignment="Center" Margin="3" />
                     </StackPanel>
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        
-        
+
         <!--Data-->
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
-                  ItemsSource="{Binding DataModel.Tasks}"
+                  x:Name="MRFiles"
+                  ItemsSource="{Binding ContextData.Tasks}"
                   SelectedItem="{Binding SelectedItem}"
                   SelectionChanged="SelectionChanged"
-                  
+
                   AllowDrop="True"
                   DragEnter="Drag_Enter" DragLeave="Drag_Leave"
                   DragOver="Drag_Over" Drop="Drag_Drop"
-                  
+
                   AutoGenerateColumns="False" CanUserResizeRows="False"
-                  RowHeaderWidth="30" VerticalGridLinesBrush="Transparent" 
+                  RowHeaderWidth="30" VerticalGridLinesBrush="Transparent"
                   HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"
-                  
+
                   BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
                   Margin="0 0 0 5" BorderThickness="0 1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Filename}" Width="1*" IsReadOnly="True" CanUserReorder="False" CanUserSort="False"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Filename}" Width="1*" IsReadOnly="True" CanUserReorder="False" CanUserSort="False" />
                 <DataGridTextColumn Header="Location" Binding="{Binding Directory}" Width="2*" IsReadOnly="True" CanUserReorder="False" CanUserSort="False">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
-        
+
         <!--Dropper Marker-->
         <Grid x:Name="DropperMarker"
               Visibility="Hidden"
               IsHitTestVisible="False"
               Grid.Row="1" Grid.ColumnSpan="2">
-            <Rectangle Fill="#8444"/>
+            <Rectangle Fill="#8444" />
             <Rectangle Margin="10"
                        StrokeThickness="5"
                        Stroke="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"
                        StrokeDashArray="3 3"
                        StrokeDashOffset="1"
                        StrokeDashCap="Round"
-                       StrokeLineJoin="Round"/>
+                       StrokeLineJoin="Round" />
             <Border Background="#B000"
                     Padding="30 20"
                     CornerRadius="10"
@@ -169,65 +182,64 @@
                     VerticalAlignment="Center">
                 <TextBlock Text="drop files here"
                            FontSize="18"
-                           Foreground="#FFF"/>
+                           Foreground="#FFF" />
             </Border>
         </Grid>
 
-
         <!--Naming-->
-        <Border Grid.Row="2" 
+        <Border Grid.Row="2"
                 Margin="10 5 5 10" Padding="3"
                 BorderThickness="1" CornerRadius="3"
                 BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
-                        <Setter Property="Margin" Value="3 0 3 0"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Foreground" Value="#444"/>
+                        <Setter Property="Margin" Value="3 0 3 0" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Foreground" Value="#444" />
                     </Style>
                     <Style TargetType="TextBox">
-                        <Setter Property="Margin" Value="3"/>
-                        <Setter Property="Height" Value="26"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="Height" Value="26" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
                     </Style>
-                    <Style TargetType="controls:NumericUpDown">
-                        <Setter Property="Margin" Value="3"/>
+                    <Style TargetType="customcontrols:NumericUpDown">
+                        <Setter Property="Margin" Value="3" />
                     </Style>
                 </Grid.Resources>
-            
+
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Preview"/>
-                <TextBlock Text="Prefix" Grid.Row="1"/>
-                <TextBlock Text="Suffix" Grid.Row="2"/>
+                <TextBlock Text="Preview" />
+                <TextBlock Text="Prefix" Grid.Row="1" />
+                <TextBlock Text="Suffix" Grid.Row="2" />
 
                 <TextBox Text="{Binding Preview}"
                          ToolTip="If renamed, this is the name that would be applied to the currently selected file"
                          Grid.Column="1" Grid.ColumnSpan="2"
                          IsReadOnly="True" BorderThickness="0"
                          Margin="4" Height="24"
-                         VerticalContentAlignment="Center"/>
+                         VerticalContentAlignment="Center" />
                 <TextBox Text="{Binding NamingData.Prefix, Mode=TwoWay}"
                          Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
-                         VerticalContentAlignment="Center"/>
+                         VerticalContentAlignment="Center" />
                 <DockPanel Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
                     <CheckBox IsChecked="{Binding NamingData.KeepExtension}"
                               DockPanel.Dock="Right" Margin="3"
                               VerticalAlignment="Center"
-                              Content="Keep extension"/>
+                              Content="Keep extension" />
                     <TextBox Text="{Binding NamingData.Suffix, Mode=TwoWay}"
-                             VerticalContentAlignment="Center"/>
+                             VerticalContentAlignment="Center" />
                 </DockPanel>
 
                 <Button ToolTip="Reset" Command="{Binding ResetCommand}"
@@ -235,7 +247,7 @@
                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                     <Path Height="24" Width="24" Stretch="None"
                           Data="{StaticResource Reset}"
-                          Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+                          Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
                 </Button>
 
                 <Button ToolTip="Next" Command="{Binding NextCommand}"
@@ -243,36 +255,35 @@
                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                     <Path Height="24" Width="24" Stretch="None"
                           Data="{StaticResource Next}"
-                          Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+                          Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
                 </Button>
 
                 <Grid Grid.Column="1" Grid.Row="3">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Number"/>
-                    <TextBlock Text="Digits" Grid.Column="1"/>
-                    <TextBlock Text="Increment" Grid.Column="2"/>
+                    <TextBlock Text="Number" />
+                    <TextBlock Text="Digits" Grid.Column="1" />
+                    <TextBlock Text="Increment" Grid.Column="2" />
 
-                    <controls:NumericUpDown Grid.Row="1"
-                                            Value="{Binding NamingData.Index, Mode=TwoWay}"
-                                            MaxValue="{Binding NamingData.Digits, Mode=OneWay, Converter={StaticResource DigitsToMaxValue}}"/>
-                    <controls:NumericUpDown Grid.Row="1" Grid.Column="1"
-                                            Value="{Binding NamingData.Digits, Mode=TwoWay}"/>
-                    <controls:NumericUpDown Grid.Row="1" Grid.Column="2"
-                                            Value="{Binding NamingData.Increment, Mode=TwoWay}"/>
+                    <customcontrols:NumericUpDown Grid.Row="1"
+                                                  Value="{Binding NamingData.Index, Mode=TwoWay}"
+                                                  MaxValue="{Binding NamingData.Digits, Mode=OneWay, Converter={StaticResource DigitsToMaxValue}}" />
+                    <customcontrols:NumericUpDown Grid.Row="1" Grid.Column="1"
+                                                  Value="{Binding NamingData.Digits, Mode=TwoWay}" />
+                    <customcontrols:NumericUpDown Grid.Row="1" Grid.Column="2"
+                                                  Value="{Binding NamingData.Increment, Mode=TwoWay}" />
                 </Grid>
             </Grid>
         </Border>
 
-        
         <!--Apply-->
         <Border Grid.Column="1" Grid.Row="2"
                 Margin="5 5 10 10" Padding="3"
@@ -280,51 +291,53 @@
                 BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
             <DockPanel>
                 <CheckBox Content="Auto-overwrite"
-                          IsChecked="{Binding DataModel.AutoOverwrite}"
+                          IsChecked="{Binding ContextData.AutoOverwrite}"
                           DockPanel.Dock="Top" Margin="3"
-                          VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                          VerticalAlignment="Center" VerticalContentAlignment="Center" />
                 <Button Content="Clear list" Command="{Binding ClearAllCommand}"
-                        DockPanel.Dock="Bottom" Margin="3" Height="26"/>
+                        DockPanel.Dock="Bottom" Margin="3" Height="26" />
                 <Button ToolTip="Rename" Command="{Binding RenameCommand}"
                         Margin="3">
-                    <Rectangle Height="48" Width="48" Fill="{StaticResource RenameIcon}"/>
+                    <Rectangle Height="48" Width="48" Fill="{StaticResource RenameIcon}" />
                 </Button>
             </DockPanel>
         </Border>
-        
-        
+
         <!--StatusBar-->
         <StatusBar Grid.Row="3" Grid.ColumnSpan="2"
                    BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
                    BorderThickness="0 1 0 0">
             <StatusBar.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#FFF7F7F7" Offset="0"/>
-                    <GradientStop Color="#FDDD" Offset="1"/>
+                    <GradientStop Color="#FFF7F7F7" Offset="0" />
+                    <GradientStop Color="#FDDD" Offset="1" />
                 </LinearGradientBrush>
             </StatusBar.Background>
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <DockPanel/>
+                    <DockPanel />
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-            
+
             <!--FileCount-->
             <StatusBarItem DockPanel.Dock="Right" Margin="5 0 15 0">
                 <TextBlock>
-                    <Run Text="{Binding DataModel.Count, Mode=OneWay, FallbackValue=0}"/>
-                    <Run Text="file(s)"/>
+                    <Run Text="{Binding ContextData.Count, Mode=OneWay, FallbackValue=0}" />
+                    <Run Text=" of " />
+                    <Run Text="{Binding ContextData.SelectedCount, Mode=OneWay, FallbackValue=0}" />
+                    <Run Text=" items selected" />
                 </TextBlock>
             </StatusBarItem>
             <StatusBarItem DockPanel.Dock="Right">
-                <Rectangle Style="{StaticResource StatusBarSeparator3D}"/>
+                <Rectangle Style="{StaticResource StatusBarSeparator3D}" />
             </StatusBarItem>
+            <!--Tooltip-->
             <StatusBarItem Margin="5 0">
                 <StatusBarItem.Style>
                     <Style TargetType="{x:Type StatusBarItem}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding CurrentLocation}" Value="">
-                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -332,12 +345,14 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Location: "
                                VerticalAlignment="Center"
-                               FontWeight="Bold" Foreground="#666"/>
+                               FontWeight="Bold"
+                               Foreground="#666"
+                               TextTrimming="CharacterEllipsis" />
                     <Button Click="Location_Click"
                             ToolTip="Shows the directory of currently selected file. Click to open the location in Windows explorer."
                             Style="{StaticResource LinkButtonStyle}"
                             Margin="5 0 0 0">
-                        <TextBlock Text="{Binding CurrentLocation, Mode=OneWay}"/>
+                        <TextBlock Text="{Binding CurrentLocation, Mode=OneWay}" />
                     </Button>
                 </StackPanel>
             </StatusBarItem>
